@@ -4,7 +4,7 @@ import { FormArray, FormControl,FormGroup,Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
 @Component({
-  selector: 'app-useredit',
+  selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
@@ -13,21 +13,25 @@ export class UserEditComponent implements OnInit {
  
 userFormData:any;
 isPosting : boolean = false;  
-  userService: any;
+  //userService: any;
   currentUserId:any;
-  constructor(private activatedRoute:ActivatedRoute, private router:Router) {
+  constructor(private activatedRoute:ActivatedRoute,private userService:UserService, private router:Router) {
     this.currentUserId = this.activatedRoute.snapshot.params['id'];
     this.userFormData = new FormGroup({
           'username' : new FormControl("",[Validators.required,Validators.minLength(3),Validators.maxLength(10)]),
           'email' : new FormControl("",[Validators.required,Validators.email]),
-          'phone' : new FormControl("",[Validators.required,Validators.min(9999999),Validators.max(9999999999)]),
+          'phoneno' : new FormControl("",[Validators.required,Validators.min(9999999),Validators.max(9999999999)]),
           'countryCode' : new FormControl(""),
           'country' : new FormControl(),
           'state' : new FormControl(),
           'city' : new FormControl(),
-          'skills' : new FormControl()
+          'skills' : new FormArray([
+            new FormGroup({
+              'skillName' : new FormControl("",Validators.required),
+              'ratting' : new FormControl()
+            })
  
-    })
+          ])})
     this.userService.userById(this.currentUserId).subscribe((data) => {
       console.log(data)
       delete data.id;

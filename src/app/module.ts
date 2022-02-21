@@ -6,6 +6,8 @@ export interface UserData{
     country : String;
     state : String;
     city : String;
+    skills : String;
+    rattings : Number;
     
 }
 export interface LoginData {
