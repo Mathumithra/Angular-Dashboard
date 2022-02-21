@@ -6,7 +6,6 @@ import { FormArray, FormControl,FormGroup,Validators } from "@angular/forms";
   templateUrl: './usercreate.component.html',
   styleUrls: ['./usercreate.component.css']
 })
-
 export class UsercreateComponent implements OnInit {
 userFormData:any;
   constructor() {
