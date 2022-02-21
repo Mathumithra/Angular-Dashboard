@@ -1,40 +1,61 @@
-import { createComponentType } from '@angular/compiler/src/render3/view/compiler';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-//import { create } from 'domain';
+import { Routes, RouterModule } from '@angular/router';
+//import { AuthGuard } from './auth.guard';
+import { DashboardDataComponent } from './dashboard-data/dashboard-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserComponent } from './user/user.component';
+//import { LoginComponent } from './login/login.component';
 import { UsercreateComponent } from './usercreate/usercreate.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserListComponent } from './user-list/user-list.component';
 import { UserviewComponent } from './userview/userview.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-    {
-      path : "dashboard",
-      component : DashboardComponent
-    },
-    {
-      path : "user",
-      component : UserComponent,
-      children : [
-        {
-          path : "list",
-          component : UserListComponent
-        },
-        {
-          path : "create",
-          component : UsercreateComponent
-        },
-        {
-          path : "view/:id",
-          component : UserviewComponent
-        }
-      ]
-    }
+  {
+    path: "login",
+    component: LoginComponent,
+  },
+ 
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+     canActivate : [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: DashboardDataComponent,
+      },
+      {
+        path: 'user',
+        component: UserComponent,
+        children: [
+          {
+            path: 'list',
+            component: UserListComponent,
+          },
+          {
+            path: 'create',
+            component: UsercreateComponent,
+          },
+          {
+            path: 'view',
+            component: UserviewComponent,
+          },
+          {
+            path: 'edit/:id',
+            component: UserEditComponent,
+          },
+        
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
