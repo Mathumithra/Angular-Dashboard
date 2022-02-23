@@ -21,10 +21,9 @@ isPosting : boolean = false;
           'username' : new FormControl("",[Validators.required,Validators.minLength(3),Validators.maxLength(10)]),
           'email' : new FormControl("",[Validators.required,Validators.email]),
           'phoneno' : new FormControl("",[Validators.required,Validators.min(9999999),Validators.max(9999999999)]),
-          'countryCode' : new FormControl(""),
-          'country' : new FormControl(),
-          'state' : new FormControl(),
-          'city' : new FormControl(),
+          'country' : new FormControl("IN"),
+          'state' : new FormControl("TN"),
+          'city' : new FormControl("CH"),
           'skills' : new FormArray([
             new FormGroup({
               'skillName' : new FormControl("",Validators.required),
